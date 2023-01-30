@@ -1,0 +1,3 @@
+/* CSS语法：@import允许将样式表导入到另一张样式表 */
+@import "./reset.css";
+@import "./common.css";
