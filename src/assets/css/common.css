@@ -1,9 +1,10 @@
 :root {
   --primary-color: #ff9854;
   --van-search-left-icon-color: var(--primary-color) !important;
+  --theme-linear-gradient: linear-gradient(90deg, #fa8c1d, #fcaf3f);
 }
 
 body{
   font-size: 14px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: -apple-system-font, Helvetica Neue, Arial, sans-serif;
 }
