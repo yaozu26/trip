@@ -2,9 +2,35 @@
   --primary-color: #ff9854;
   --van-search-left-icon-color: var(--primary-color) !important;
   --theme-linear-gradient: linear-gradient(90deg, #fa8c1d, #fcaf3f);
+
+  /* vant样式更改 */
+  --van-primary-color: var(--primary-color);
+}
+
+html {
+  line-height: 1.2;
 }
 
 body{
   font-size: 14px;
-  font-family: -apple-system-font, Helvetica Neue, Arial, sans-serif;
+  /* font-family: Courier New,Courier,monospace; */
+  font-family: PingFangSC-Regular,Helvetica Neue,sans-serif;
+  background-color: #f7f8fb;
+}
+
+/* 设置高度为全屏高度 */
+.top-page {
+  position: fixed;
+  z-index: 9;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  overflow-y: auto;
+}
+
+.icon_check {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: url(../img/detail/icon_check.png) 0 0/100% 100%;
 }

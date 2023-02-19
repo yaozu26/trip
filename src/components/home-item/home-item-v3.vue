@@ -74,7 +74,7 @@ defineProps({
           color: #ff9645;
         }
         .oldPrice {
-          margin: 0 3px;
+          margin: 0 2px;
           color: #999;
           text-decoration: line-through;
         }

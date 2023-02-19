@@ -49,6 +49,7 @@ const currentGroup = computed(() => allCities.value[tabActive.value])
 
 <style lang="less" scoped>
 .city {
+  background-color: #fff;
   .content {
     height: calc(100vh - 98px);
     overflow-y: auto;

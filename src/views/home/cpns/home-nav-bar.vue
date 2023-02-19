@@ -15,6 +15,7 @@
     align-items: center;
     height: 46px;
     border-bottom: 1px solid #fafafa;
+    background-color: #fff;
     .title {
     color: var(--primary-color);
     font-size: 16px;
