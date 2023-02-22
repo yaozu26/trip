@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onActivated } from 'vue';
 import homeNavBar from './cpns/home-nav-bar.vue';
 import homeSearchBox from './cpns/home-search-box.vue'
 import homeCategory from './cpns/home-category.vue';
@@ -8,7 +8,8 @@ import searchBar from '@/components/search-bar/search-bar.vue';
 import useScroll from '@/hooks/useScroll';
 import useHomeStore from '@/stores/modules/home';
 
-const { isReachBottom, scrollTop } = useScroll()
+const homeRef = ref()
+const { isReachBottom, scrollTop } = useScroll(homeRef)
 const homeStore = useHomeStore()
 homeStore.fetchHouselist()
 
@@ -23,10 +24,17 @@ watch(isReachBottom, (newValue) => {
     })
   }
 })
+
+onActivated(() => {
+  homeRef.value.scrollTo({
+    tip: scrollTop.value,
+    behavior: "smooth"
+  })
+})
 </script>
 
 <template>
-  <div class="home">
+  <div class="home" ref="homeRef">
     <home-nav-bar/>
     <div class="banner">
       <img src="@/assets/img/home/banner.webp" alt="">
@@ -41,6 +49,9 @@ watch(isReachBottom, (newValue) => {
 <style lang="less" scoped>
 .home {
   margin-bottom: 50px;
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
   .banner {
     img {
       width: 100%;
