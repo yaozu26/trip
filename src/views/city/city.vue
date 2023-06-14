@@ -1,6 +1,6 @@
 <script setup>
 import CityGroup from './cpns/city-group.vue'
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useCityStore from '@/stores/modules/city'
 import { storeToRefs } from 'pinia';
@@ -15,13 +15,12 @@ const cancelClick = () => {
 
 // tab的切换
 const tabActive = ref()
+
 // 获取网络请求
 const cityStore = useCityStore()
 cityStore.fetchAllcitiesData()
 const { allCities } = storeToRefs(cityStore)
 
-// 获取选中标签后的数据
-const currentGroup = computed(() => allCities.value[tabActive.value])
 </script>
 
 <template>
@@ -37,7 +36,6 @@ const currentGroup = computed(() => allCities.value[tabActive.value])
         </template>
       </van-tabs>
     </div>
-
     <div class="content">
       <template v-for="(value, key, index) in allCities" :key="key">
         <city-group v-show="tabActive === key" :group-data="value" />

@@ -1,29 +1,63 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { formatPrice } from '@/utils/format_price';
+import useMainStore from '@/stores/modules/main';
 
 const props = defineProps({
-  itemDate: {
+  itemData: {
     type: Object,
     default: () => { }
+  },
+  isAddData: {
+    type: Boolean,
+    default: () => false
   }
 })
 
-const itemScore = computed(() => Number(props.itemDate.commentScore))
+const mainStore = useMainStore()
+const { collectHouseData } = storeToRefs(mainStore)
+
+
+// 收藏卡片事件
+let isAddDataItem = ref(props.isAddData)
+const collectClick = (item) => {
+  isAddDataItem.value = true
+
+  for (let i = 0; i < collectHouseData.value.length; i++) {
+    if (collectHouseData.value[i] == item) {
+      isAddDataItem.value = false
+      collectHouseData.value.splice(i, 1)
+      break
+    }
+  }
+
+  if (isAddDataItem.value) {
+    collectHouseData.value.push(item)
+  }
+}
+
+// 评分
+const itemScore = computed(() => Number(props.itemData.data.commentScore))
+
 </script>
 
 <template>
   <div class="home-item-v9">
     <div class="item-inner">
+      <!-- <div class="heart" @click.stop="collectClick(itemData)">
+        <img src="@/assets/img/favor/heart.png" alt="" v-if="!isAddDataItem">
+        <img src="@/assets/img/favor/heart_active.png" alt="" v-if="isAddDataItem">
+      </div> -->
       <div class="cover">
-        <img :src="itemDate.image.url" alt="">
+        <img :src="itemData.data.image.url" alt="">
       </div>
       <div class="info">
-        <div class="summary">{{ itemDate.summaryText }}</div>
-        <div class="name">{{ itemDate.houseName }}</div>
+        <div class="summary">{{ itemData.data.summaryText }}</div>
+        <div class="name">{{ itemData.data.houseName }}</div>
         <div class="bottom">
           <van-rate :model-value="itemScore" size="15px" color="#fff" readonly allow-half />
-          <div class="price">{{ formatPrice(itemDate.finalPrice) }}</div>
+          <div class="price">{{ formatPrice(itemData.data.finalPrice) }}</div>
         </div>
       </div>
     </div>
@@ -39,6 +73,17 @@ const itemScore = computed(() => Number(props.itemDate.commentScore))
     margin: 5px;
     border-radius: 6px;
     overflow: hidden;
+
+    .heart {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
+    }
 
     .cover {
       img {
@@ -64,11 +109,11 @@ const itemScore = computed(() => Number(props.itemDate.commentScore))
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
       }
+
       .bottom {
         display: flex;
         justify-content: space-between;
       }
     }
   }
-}
-</style>
+}</style>
